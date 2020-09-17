@@ -4,16 +4,6 @@
 #include <array>
 #include <string>
 
-//const std::array<std::string, 8> SegmentNames = {
-//        "New",
-//        "Waning Crescent",
-//        "Third Quarter",
-//        "Waning Gibbous",
-//        "Full",
-//        "Waxing Gibbous",
-//        "First Quarter",
-//        "Waxing Crescent"};
-
 enum Segment {
     New = 0,
     WaningCrescent,
