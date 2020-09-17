@@ -86,7 +86,20 @@ void Lunar::CalculatePhaseOfMoon(Phase *phase) {
     double t = phase->moonPosition - phase->sunPosition;
     if (t < 0) t += 360;
 
-    phase->segment = (int)((t + 22.5)/45) & 0x7;
     phase->visible = (1.0 - cos((phase->moonPosition - phase->sunPosition) * RAD)) / 2;
-    phase->name = (Name)phase->segment;
+    phase->segment = (Segment)((int)((t + 22.5) / 45) & 0x7);
+}
+
+const std::string Lunar::GetSegmentName(int segment) {
+    const std::array<std::string, 8> segmentNames = {
+            "New",
+            "Waning Crescent",
+            "Third Quarter",
+            "Waning Gibbous",
+            "Full",
+            "Waxing Gibbous",
+            "First Quarter",
+            "Waxing Crescent"};
+
+    return segmentNames.at(segment);
 }
