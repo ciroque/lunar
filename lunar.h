@@ -25,6 +25,7 @@ struct Phase {
 
 class Lunar {
 public:
+    static Phase GetMoonPhase();
     static Phase GetMoonPhase(unsigned int year, unsigned int month, double day);
     static const std::string GetSegmentName(int segment);
 

@@ -6,6 +6,15 @@
 
 #include <math.h>
 
+#include <ctime>
+
+Phase Lunar::GetMoonPhase() {
+    const int BASE_YEAR = 1900;
+    time_t ttime = time(0);
+    tm* local_time = localtime(&ttime);
+    return GetMoonPhase(local_time->tm_year + BASE_YEAR, local_time->tm_mon + 1, local_time->tm_mday);
+}
+
 Phase Lunar::GetMoonPhase(unsigned int year, unsigned int month, double day) {
     auto lunar = new Lunar();
     auto phase = Phase{};
