@@ -6,13 +6,13 @@
 
 enum Segment {
     New = 0,
-    WaningCrescent,
-    ThirdQuarter,
-    WaningGibbous,
-    Full,
-    WaxingGibbous,
+    WaxingCrescent,
     FirstQuarter,
-    WaxingCrescent
+    WaxingGibbous,
+    Full,
+    WaningGibbous,
+    ThirdQuarter,
+    WaningCrescent,
 };
 
 struct Phase {
