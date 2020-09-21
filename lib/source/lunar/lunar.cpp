@@ -2,7 +2,7 @@
  * adapted from: http://www.voidware.com/phase.c
  * CalculateJulianDate from: https://www.programmingassignmenthelper.com/convert-a-date-to-the-julian-day-number-in-c/
  */
-#include "lunar.h"
+#include "lunar/lunar.h"
 
 #include <math.h>
 
