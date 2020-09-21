@@ -4,7 +4,7 @@
  */
 #include "lunar/lunar.h"
 
-#include <math.h>
+#include <cmath>
 
 #include <ctime>
 
@@ -13,6 +13,22 @@ Phase Lunar::GetMoonPhase() {
     time_t ttime = time(0);
     tm* local_time = localtime(&ttime);
     return GetMoonPhase(local_time->tm_year + BASE_YEAR, local_time->tm_mon + 1, local_time->tm_mday);
+}
+
+Phase Lunar::GetMoonPhase(int julianDay) {
+    auto lunar = new Lunar();
+    auto phase = Phase{
+        julianDay = julianDay
+    };
+
+    phase.sunPosition = lunar->CalculatePositionOfSun(phase.julianDay);
+    phase.moonPosition = lunar->CalculatePositionOfMoon(phase.julianDay, phase.sunPosition);
+
+    lunar->CalculatePhaseOfMoon(&phase);
+
+    delete lunar;
+
+    return phase;
 }
 
 Phase Lunar::GetMoonPhase(unsigned int year, unsigned int month, double day) {
@@ -30,7 +46,7 @@ Phase Lunar::GetMoonPhase(unsigned int year, unsigned int month, double day) {
     return phase;
 }
 
-double Lunar::CalculateJulianDay(unsigned int year, unsigned int month, double day) {
+int Lunar::CalculateJulianDay(unsigned int year, unsigned int month, double day) {
     int a, m, y, leap_days;
     a = ((14 - month) / 12);
     m = (month - 3) + (12 * a);
@@ -112,3 +128,4 @@ const std::string Lunar::GetSegmentName(int segment) {
 
     return segmentNames.at(segment);
 }
+
