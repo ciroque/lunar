@@ -25,6 +25,7 @@ struct Phase {
 
 class Lunar {
 public:
+    static int CalculateJulianDay(int year, int month, double day);
     static Phase GetMoonPhase();
     static Phase GetMoonPhase(int julianDay);
     static Phase GetMoonPhase(unsigned int year, unsigned int month, double day);
@@ -35,7 +36,6 @@ private:
     const double RAD = (PI/180.0);
     const double SMALL_FLOAT = (1e-12);
 
-    int CalculateJulianDay(unsigned int year, unsigned int month, double day);
     double CalculatePositionOfSun(double julianDay);
     double CalculatePositionOfMoon(double julianDay, double sunPosition);
     void CalculatePhaseOfMoon(Phase *phase);

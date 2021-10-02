@@ -4,3 +4,23 @@
 # CMake
 cmake-build-*/
 
+/cmake_install.cmake
+/CMakeCache.txt
+/install_manifest.txt
+/lunar.cbp
+/Makefile
+/CMakeFiles/
+/lib/CMakeFiles/
+/lib/cmake_install.cmake
+/lib/liblunar.so
+/lib/liblunarstatic.a
+/lib/Makefile
+/lib/liblunar-d.so.0.0.0
+/lib/liblunar-d.so.0
+/lib/liblunar.so.0.0.0
+/lib/liblunar.so.0
+/lib/liblunar-d.so
+/Testing/
+/tests/CMakeFiles/
+/tests/cmake_install.cmake
+/tests/Makefile

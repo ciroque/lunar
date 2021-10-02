@@ -46,13 +46,13 @@ Phase Lunar::GetMoonPhase(unsigned int year, unsigned int month, double day) {
     return phase;
 }
 
-int Lunar::CalculateJulianDay(unsigned int year, unsigned int month, double day) {
-    int a, m, y, leap_days;
+int Lunar::CalculateJulianDay(int year, int month, double day) {
+    double a, m, y, leap_days;
     a = ((14 - month) / 12);
     m = (month - 3) + (12 * a);
     y = year + 4800 - a;
     leap_days = (y / 4) - (y / 100) + (y / 400);
-    return (day + (((153 * m) + 2) / 5) + (365 * y) + leap_days - 32045) - 2444238.5;
+    return (day + (((153 * m) + 2.0) / 5.0) + (365 * y) + leap_days - 32045); // - 2444238.5;
 }
 
 double Lunar::CalculatePositionOfSun(double j) {
