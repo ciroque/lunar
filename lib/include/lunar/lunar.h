@@ -25,6 +25,7 @@ struct Phase {
 
 class Lunar {
 public:
+    constexpr static const int EPOCH = 2444238; // [2444238.5] We do not need a fractional value here as we are not calculating intra-day values
     static int CalculateJulianDay(int year, int month, double day);
     static Phase GetMoonPhase();
     static Phase GetMoonPhase(int julianDay);
