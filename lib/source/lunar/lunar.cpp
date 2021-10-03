@@ -9,6 +9,14 @@
 #include <ctime>
 #include <lunar/lunar.h>
 
+int Lunar::CalculateJulianDay() {
+    const int BASE_YEAR = 1900;
+    time_t ttime = time(0);
+    tm* local_time = localtime(&ttime);
+
+    return CalculateJulianDay(local_time->tm_year + BASE_YEAR, local_time->tm_mon + 1, local_time->tm_mday);
+}
+
 int Lunar::CalculateJulianDay(int year, int month, double day) {
     int a, m, y, leap_days;
     a = ((14 - month) / 12);
@@ -16,6 +24,27 @@ int Lunar::CalculateJulianDay(int year, int month, double day) {
     y = year + 4800 - a;
     leap_days = (y / 4) - (y / 100) + (y / 400);
     return (int) (day + (((153 * m) + 2.0) / 5.0) + (365 * y) + leap_days - 32045);
+}
+
+Phase Lunar::CalculateMoonPhase() {
+    auto julianDay = CalculateJulianDay();
+    return CalculateMoonPhase(julianDay);
+}
+
+Phase Lunar::CalculateMoonPhase(int julianDay) {
+    auto illumination = CalculateIllumination(julianDay);
+
+    return Phase {
+            .julianDay = julianDay,
+            .phase = illumination.phase,
+            .segment = (Segment) (int) (illumination.phase * 8),
+            .visible = illumination.visible,
+    };
+}
+
+Phase Lunar::CalculateMoonPhase(int year, int month, double day) {
+    auto julianDay = CalculateJulianDay(year, month, day);
+    return CalculateMoonPhase(julianDay);
 }
 
 std::string Lunar::GetSegmentName(int segment) {
@@ -83,33 +112,4 @@ Illumination Lunar::CalculateIllumination(int julianDay) {
         .phase = 0.5 + 0.5 * inc * (angle < 0 ? -1 : 1) / PI,
         .visible = (1 + std::cos(inc)) / 2
     };
-}
-
-Phase Lunar::CalculateMoonPhase(int julianDay) {
-    auto illumination = CalculateIllumination(julianDay);
-
-    return Phase {
-        .julianDay = julianDay,
-        .phase = illumination.phase,
-        .segment = (Segment) (int) (illumination.phase * 8),
-        .visible = illumination.visible,
-    };
-}
-
-Phase Lunar::CalculateMoonPhase(int year, int month, double day) {
-    auto julianDay = CalculateJulianDay(year, month, day);
-    return CalculateMoonPhase(julianDay);
-}
-
-int Lunar::CalculateJulianDay() {
-    const int BASE_YEAR = 1900;
-    time_t ttime = time(0);
-    tm* local_time = localtime(&ttime);
-
-    return CalculateJulianDay(local_time->tm_year + BASE_YEAR, local_time->tm_mon + 1, local_time->tm_mday);
-}
-
-Phase Lunar::CalculateMoonPhase() {
-    auto julianDay = CalculateJulianDay();
-    return CalculateMoonPhase(julianDay);
 }
