@@ -60,7 +60,7 @@ Position Lunar::CalculateLunarCoordinates(int julianDay) {
 }
 
 Illumination Lunar::CalculateIllumination(int julianDay) {
-    auto day = julianDay - 2451545;
+    auto day = julianDay - MILLENNIUM_EPOCH;
     auto solarCoordinates = CalculateSolarCoordinates(day);
     auto lunarCoordinates = CalculateLunarCoordinates(day);
 
