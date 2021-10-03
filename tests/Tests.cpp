@@ -30,3 +30,7 @@ TEST_CASE( "CalculateMoonPhase" ) {
     REQUIRE( Lunar::CalculateMoonPhase(2021, 10, 29).segment == Segment::ThirdQuarter );
     REQUIRE( Lunar::CalculateMoonPhase(2021, 10, 04).segment == Segment::WaningCrescent );
 }
+
+TEST_CASE( "Defaults for CalculateMoonPhase and CalculateJulianDay" ) {
+    REQUIRE( Lunar::CalculateMoonPhase().julianDay == Lunar::CalculateJulianDay() );
+}

@@ -100,3 +100,16 @@ Phase Lunar::CalculateMoonPhase(int year, int month, double day) {
     auto julianDay = CalculateJulianDay(year, month, day);
     return CalculateMoonPhase(julianDay);
 }
+
+int Lunar::CalculateJulianDay() {
+    const int BASE_YEAR = 1900;
+    time_t ttime = time(0);
+    tm* local_time = localtime(&ttime);
+
+    return CalculateJulianDay(local_time->tm_year + BASE_YEAR, local_time->tm_mon + 1, local_time->tm_mday);
+}
+
+Phase Lunar::CalculateMoonPhase() {
+    auto julianDay = CalculateJulianDay();
+    return CalculateMoonPhase(julianDay);
+}
