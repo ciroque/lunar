@@ -22,7 +22,7 @@ Phase Lunar::GetMoonPhase(int year, int month, double day) {
 Phase Lunar::GetMoonPhase(int julianDay) {
     auto lunar = new Lunar();
     auto phase = Phase{
-        julianDay = julianDay
+        julianDay = julianDay - EPOCH
     };
 
     phase.sunPosition = lunar->CalculatePositionOfSun(phase.julianDay);
@@ -41,7 +41,7 @@ int Lunar::CalculateJulianDay(int year, int month, double day) {
     m = (month - 3) + (12 * a);
     y = year + 4800 - a;
     leap_days = (y / 4) - (y / 100) + (y / 400);
-    return (int) (day + (((153 * m) + 2.0) / 5.0) + (365 * y) + leap_days - 32045) - EPOCH;
+    return (int) (day + (((153 * m) + 2.0) / 5.0) + (365 * y) + leap_days - 32045);
 }
 
 double Lunar::CalculatePositionOfSun(double j) const {

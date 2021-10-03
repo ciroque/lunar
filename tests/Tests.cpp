@@ -4,11 +4,12 @@
 #include "../lib/include/lunar/lunar.h"
 
 TEST_CASE( "Julian dates are calculated correctly", "[julian]" ) {
-    REQUIRE( Lunar::CalculateJulianDay(-4713, 11, 24) + Lunar::EPOCH == 0 );
-    REQUIRE( Lunar::CalculateJulianDay(0, 12, 25) + Lunar::EPOCH == 1721419 );
-    REQUIRE( Lunar::CalculateJulianDay(2001, 01, 1) + Lunar::EPOCH == 2451911 );
-    REQUIRE( Lunar::CalculateJulianDay(1968, 05, 31) + Lunar::EPOCH == 2440008 );
-    REQUIRE( Lunar::CalculateJulianDay(2021, 10, 02) + Lunar::EPOCH == 2459490 );
+    REQUIRE( Lunar::CalculateJulianDay(-4713, 11, 24) == 0 );
+    REQUIRE( Lunar::CalculateJulianDay(0, 12, 25) == 1721419 );
+    REQUIRE( Lunar::CalculateJulianDay(2001, 01, 1) == 2451911 );
+    REQUIRE( Lunar::CalculateJulianDay(1968, 05, 31) == 2440008 );
+    REQUIRE( Lunar::CalculateJulianDay(2021, 10, 02) == 2459490 );
+    REQUIRE( Lunar::CalculateJulianDay(2021, 10, 03) == 2459491 );
 }
 
 TEST_CASE( "Returns the correct segment name for the phase" ) {
@@ -26,5 +27,5 @@ TEST_CASE( "Calculates the phase of the moon correctly" ) {
     REQUIRE( Lunar::GetMoonPhase(2021, 10, 06).segment == Segment::New );
     REQUIRE( Lunar::GetMoonPhase(2021, 10, 20).segment == Segment::Full );
     REQUIRE( Lunar::GetMoonPhase(2021, 10, 28).segment == Segment::ThirdQuarter );
-    REQUIRE( Lunar::GetMoonPhase(2021, 10, 04).segment == Segment::WaningCrescent );
+    REQUIRE( Lunar::GetMoonPhase(2021, 10, 04).segment == Segment::WaningCrescent ); // KNOWN FAILURE
 }
