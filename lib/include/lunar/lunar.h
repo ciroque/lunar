@@ -29,7 +29,7 @@ public:
     static int CalculateJulianDay(int year, int month, double day);
     static Phase GetMoonPhase();
     static Phase GetMoonPhase(int julianDay);
-    static Phase GetMoonPhase(unsigned int year, unsigned int month, double day);
+    static Phase GetMoonPhase(int year, int month, double day);
     static std::string GetSegmentName(int segment);
 
 private:
@@ -37,7 +37,7 @@ private:
     const double RAD = (PI/180.0);
     const double SMALL_FLOAT = (1e-12);
 
-    double CalculatePositionOfSun(double julianDay);
+    double CalculatePositionOfSun(double julianDay) const;
     double CalculatePositionOfMoon(double julianDay, double sunPosition);
     void CalculatePhaseOfMoon(Phase *phase);
 };

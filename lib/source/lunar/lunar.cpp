@@ -15,27 +15,16 @@ Phase Lunar::GetMoonPhase() {
     return GetMoonPhase(local_time->tm_year + BASE_YEAR, local_time->tm_mon + 1, local_time->tm_mday);
 }
 
+Phase Lunar::GetMoonPhase(int year, int month, double day) {
+    return GetMoonPhase(CalculateJulianDay(year, month, day));
+}
+
 Phase Lunar::GetMoonPhase(int julianDay) {
     auto lunar = new Lunar();
     auto phase = Phase{
         julianDay = julianDay
     };
 
-    phase.sunPosition = lunar->CalculatePositionOfSun(phase.julianDay);
-    phase.moonPosition = lunar->CalculatePositionOfMoon(phase.julianDay, phase.sunPosition);
-
-    lunar->CalculatePhaseOfMoon(&phase);
-
-    delete lunar;
-
-    return phase;
-}
-
-Phase Lunar::GetMoonPhase(unsigned int year, unsigned int month, double day) {
-    auto lunar = new Lunar();
-    auto phase = Phase{};
-
-    phase.julianDay = lunar->CalculateJulianDay(year, month, day);
     phase.sunPosition = lunar->CalculatePositionOfSun(phase.julianDay);
     phase.moonPosition = lunar->CalculatePositionOfMoon(phase.julianDay, phase.sunPosition);
 
@@ -55,7 +44,7 @@ int Lunar::CalculateJulianDay(int year, int month, double day) {
     return (int) (day + (((153 * m) + 2.0) / 5.0) + (365 * y) + leap_days - 32045) - EPOCH;
 }
 
-double Lunar::CalculatePositionOfSun(double j) {
+double Lunar::CalculatePositionOfSun(double j) const {
     double n, x, e, l, dl, v;
     double m2;
     int i;
