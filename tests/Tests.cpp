@@ -23,9 +23,10 @@ TEST_CASE( "Returns the correct segment name for the phase" ) {
     REQUIRE( Lunar::GetSegmentName(Segment::WaningCrescent) == "Waning Crescent" );
 }
 
-TEST_CASE( "Calculates the phase of the moon correctly" ) {
-    REQUIRE( Lunar::GetMoonPhase(2021, 10, 06).segment == Segment::New );
-    REQUIRE( Lunar::GetMoonPhase(2021, 10, 20).segment == Segment::Full );
-    REQUIRE( Lunar::GetMoonPhase(2021, 10, 28).segment == Segment::ThirdQuarter );
-    REQUIRE( Lunar::GetMoonPhase(2021, 10, 04).segment == Segment::WaningCrescent ); // KNOWN FAILURE
+TEST_CASE( "CalculateMoonPhase" ) {
+    REQUIRE( Lunar::CalculateMoonPhase(2021, 10, 06).segment == Segment::New );
+    REQUIRE( Lunar::CalculateMoonPhase(2021, 10, 20).segment == Segment::Full );
+    REQUIRE( Lunar::CalculateMoonPhase(2021, 10, 28).segment == Segment::WaningGibbous );
+    REQUIRE( Lunar::CalculateMoonPhase(2021, 10, 29).segment == Segment::ThirdQuarter );
+    REQUIRE( Lunar::CalculateMoonPhase(2021, 10, 04).segment == Segment::WaningCrescent );
 }
