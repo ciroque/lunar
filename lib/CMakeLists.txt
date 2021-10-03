@@ -1,4 +1,4 @@
-include_directories (include/)
+include_directories(include/)
 
 file(GLOB_RECURSE sources source/lunar/*.cpp source/lunar/*.h include/lunar/*.h)
 
@@ -23,9 +23,9 @@ if (LUNAR_BUILD_STATIC)
 endif (LUNAR_BUILD_STATIC)
 
 # Library installation directory
-if(NOT DEFINED CMAKE_INSTALL_LIBDIR)
+if (NOT DEFINED CMAKE_INSTALL_LIBDIR)
     set(CMAKE_INSTALL_LIBDIR lib)
-endif(NOT DEFINED CMAKE_INSTALL_LIBDIR)
+endif (NOT DEFINED CMAKE_INSTALL_LIBDIR)
 set(libdir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 
 message(STATUS "Installing header files...")

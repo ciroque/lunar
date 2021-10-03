@@ -12,7 +12,7 @@
 int Lunar::CalculateJulianDay() {
     const int BASE_YEAR = 1900;
     time_t ttime = time(0);
-    tm* local_time = localtime(&ttime);
+    tm *local_time = localtime(&ttime);
 
     return CalculateJulianDay(local_time->tm_year + BASE_YEAR, local_time->tm_mon + 1, local_time->tm_mday);
 }
@@ -65,7 +65,7 @@ Position Lunar::CalculateSolarCoordinates(int julianDay) {
     auto solarMeanAnomaly = RAD * (357.5291 + 0.98560028 * julianDay);
     auto eclipticLongitude = CalculateEclipticLongitude(solarMeanAnomaly);
 
-    return Position{
+    return Position {
         .declination =  CalculateDeclination(eclipticLongitude, 0),
         .distance = 0.0,
         .rightAscension = CalculateRightAscension(eclipticLongitude, 0)
@@ -81,7 +81,7 @@ Position Lunar::CalculateLunarCoordinates(int julianDay) {
     auto latitude = RAD * 5.128 * std::sin(meanDistance);
     auto distance = 385001 - 20905 * std::cos(meanAnomaly);
 
-    return Position{
+    return Position {
         .declination = CalculateDeclination(longitude, latitude),
         .distance = distance,
         .rightAscension = CalculateRightAscension(longitude, latitude)
@@ -94,20 +94,20 @@ Illumination Lunar::CalculateIllumination(int julianDay) {
     auto lunarCoordinates = CalculateLunarCoordinates(day);
 
     auto phi = std::acos(std::sin(solarCoordinates.declination)
-            * std::sin(lunarCoordinates.declination)
-            + std::cos(solarCoordinates.declination)
-            * std::cos(lunarCoordinates.declination)
-            * std::cos(solarCoordinates.rightAscension - lunarCoordinates.rightAscension));
+        * std::sin(lunarCoordinates.declination)
+        + std::cos(solarCoordinates.declination)
+        * std::cos(lunarCoordinates.declination)
+        * std::cos(solarCoordinates.rightAscension - lunarCoordinates.rightAscension));
     auto inc = std::atan2(DISTANCE_FROM_EARTH_TO_SUN
-            * std::sin(phi),
-            lunarCoordinates.distance - DISTANCE_FROM_EARTH_TO_SUN * cos(phi));
+        * std::sin(phi),
+        lunarCoordinates.distance - DISTANCE_FROM_EARTH_TO_SUN * cos(phi));
     auto angle = std::atan2(
-            cos(solarCoordinates.declination) * sin(solarCoordinates.rightAscension - lunarCoordinates.rightAscension),
-                sin(solarCoordinates.declination) * cos(lunarCoordinates.declination)
-            - cos(solarCoordinates.declination) * sin(lunarCoordinates.declination)
-              * cos(solarCoordinates.rightAscension - lunarCoordinates.rightAscension));
+        cos(solarCoordinates.declination) * sin(solarCoordinates.rightAscension - lunarCoordinates.rightAscension),
+        sin(solarCoordinates.declination) * cos(lunarCoordinates.declination)
+        - cos(solarCoordinates.declination) * sin(lunarCoordinates.declination)
+        * cos(solarCoordinates.rightAscension - lunarCoordinates.rightAscension));
 
-    return Illumination{
+    return Illumination {
         .angle = angle,
         .phase = 0.5 + 0.5 * inc * (angle < 0 ? -1 : 1) / PI,
         .visible = (1 + std::cos(inc)) / 2

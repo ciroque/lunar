@@ -99,7 +99,7 @@ public:
 private:
     constexpr static const int MILLENNIUM_EPOCH = 2451545;
     constexpr static const double PI = 3.1415926535897932384626433832795;
-    constexpr static const double RAD = (PI/180.0);
+    constexpr static const double RAD = (PI / 180.0);
     constexpr static const double EARTH_OBLIQUITY = RAD * 23.4397;
     constexpr static const double DISTANCE_FROM_EARTH_TO_SUN = 149598000;
 
