@@ -50,7 +50,7 @@ double Lunar::CalculatePositionOfSun(double j) const {
     int i;
 
     n = 360 / 365.2422 * j;
-    i = n / 360;
+    i = (int)n / 360;
     n = n - i * 360.0;
     x = n - 3.762863;
     if(x < 0) x += 360;
@@ -67,36 +67,27 @@ double Lunar::CalculatePositionOfSun(double j) const {
     return l;
 }
 
-double Lunar::CalculatePositionOfMoon(double julianDay, double sunPosition) {
-    double ms,l,mm,n,ev,sms,z,x,lm,bm,ae,ec;
-    double d;
-    double ds, as, dm;
-    int i;
-
-    /* ls = sun_position(j) */
-    ms = 0.985647332099 * julianDay - 3.762863;
+double Lunar::CalculatePositionOfMoon(double julianDay, double sunPosition) const {
+    double ms = 0.985647332099 * julianDay - 3.762863;
     if (ms < 0) ms += 360.0;
-    l = 13.176396 * julianDay + 64.975464;
-    i = l / 360;
+    double l = 13.176396 * julianDay + 64.975464;
+    int i = (int)l / 360;
     l = l - i * 360.0;
     if (l < 0) l += 360.0;
-    mm = l - 0.1114041 * julianDay - 349.383063;
-    i = mm / 360;
+    double mm = l - 0.1114041 * julianDay - 349.383063;
+    i = (int)mm / 360;
     mm -= i * 360.0;
-    n = 151.950429 - 0.0529539 * julianDay;
-    i = n / 360;
-    n -= i * 360.0;
-    ev = 1.2739 * sin((2 * (l - sunPosition) - mm) * RAD);
-    sms = sin(ms * RAD);
-    ae = 0.1858 * sms;
+    double ev = 1.2739 * sin((2 * (l - sunPosition) - mm) * RAD);
+    double sms = sin(ms * RAD);
+    double ae = 0.1858 * sms;
     mm += ev - ae - 0.37 * sms;
-    ec = 6.2886 * sin(mm * RAD);
+    double ec = 6.2886 * sin(mm * RAD);
     l += ev + ec - ae + 0.214 * sin(2 * mm * RAD);
     l= 0.6583 * sin(2 * (l - sunPosition) * RAD) + l;
     return l;
 }
 
-void Lunar::CalculatePhaseOfMoon(Phase *phase) {
+void Lunar::CalculatePhaseOfMoon(Phase *phase) const {
     double t = phase->moonPosition - phase->sunPosition;
     if (t < 0) t += 360;
 

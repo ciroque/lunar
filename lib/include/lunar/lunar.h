@@ -38,8 +38,8 @@ private:
     const double SMALL_FLOAT = (1e-12);
 
     double CalculatePositionOfSun(double julianDay) const;
-    double CalculatePositionOfMoon(double julianDay, double sunPosition);
-    void CalculatePhaseOfMoon(Phase *phase);
+    double CalculatePositionOfMoon(double julianDay, double sunPosition) const;
+    void CalculatePhaseOfMoon(Phase *phase) const;
 };
 
 #endif //LUNAR_LUNAR_H

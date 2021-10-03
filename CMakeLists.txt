@@ -14,3 +14,5 @@ option(LUNAR_BUILD_STATIC "BUILD_STATIC" ON)
 add_subdirectory(lib)
 
 add_subdirectory(tests)
+
+enable_testing()
